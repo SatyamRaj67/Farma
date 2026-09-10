@@ -1,0 +1,302 @@
+:root {
+  --timeline-extend: 16em;
+}
+
+section.page {
+  background: var(--background);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+section.main-section {
+  min-height: 0;
+  height: calc(100vh - 60px - var(--timeline-extend));
+}
+
+section.main-section h1 {
+  font-size: 4em;
+}
+
+section.main-section h1::before {
+  all: unset;
+}
+
+section.main-section p {
+  font-size: 1.5em;
+  padding: 1em;
+}
+
+section .links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+}
+
+section .links button {
+  border: 0;
+  background: none;
+
+  position: relative;
+  width: 155px;
+  height: 50px;
+  margin: 20px;
+
+  cursor: pointer;
+}
+
+section .links button a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: color-mix(in oklch, var(--foreground) 5%, transparent);
+  box-shadow: 0 15px 35px
+    color-mix(in oklch, var(--background) 20%, transparent);
+  border-top: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+  border-bottom: 1px solid
+    color-mix(in oklch, var(--foreground) 10%, transparent);
+  border-radius: 30px;
+  font-weight: 400;
+  font-size: 1.2em;
+  letter-spacing: 1px;
+  text-decoration: none;
+  overflow: hidden;
+  text-transform: uppercase;
+  transition: 0.5s;
+  backdrop-filter: blur(15px);
+  z-index: 1;
+}
+
+section .links button:hover a {
+  letter-spacing: 3px;
+}
+
+section .links button a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    color-mix(in oklch, var(--foreground) 15%, transparent),
+    transparent
+  );
+  transform: skewX(45deg) translateX(0);
+  transition: 0.5s;
+}
+
+section .links button:hover a::before {
+  transform: skewX(45deg) translateX(200%);
+}
+
+section .links button::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -5px;
+  width: 30px;
+  height: 10px;
+  border-radius: 10px;
+  transition: 0.5s;
+  transition-delay: 0s;
+}
+
+section .links button:hover::before {
+  bottom: 0;
+  height: 50%;
+  width: 80%;
+  border-radius: 30px;
+  transition-delay: 0.5s;
+}
+
+section .links button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -5px;
+  width: 30px;
+  height: 10px;
+  border-radius: 10px;
+  transition: 0.5s;
+  transition-delay: 0s;
+  z-index: -1;
+}
+
+section .links button:hover::after {
+  top: 0;
+  height: 50%;
+  width: 80%;
+  border-radius: 30px;
+  transition-delay: 0.5s;
+}
+
+section .links button::before,
+section .links button::after {
+  background: var(--accent);
+  box-shadow:
+    0 0 5px var(--accent),
+    0 0 15px var(--accent),
+    0 0 30px var(--accent),
+    0 0 45px var(--accent);
+  z-index: 0;
+}
+
+section.timeline-section {
+  z-index: -3;
+  padding-top: var(--timeline-extend);
+}
+
+section .timeline-progress {
+  position: absolute;
+  width: 4px;
+  top: 0;
+  bottom: 0;
+  background: var(--sidebar-border);
+  z-index: -2;
+}
+
+section .timeline-progress .timeline-progressBar {
+  position: fixed;
+  width: 4px;
+  height: 50vh;
+  background: linear-gradient(
+    to bottom,
+    var(--accent-foreground),
+    var(--accent)
+  );
+  z-index: -1;
+  inset: 60px auto 50vh;
+}
+
+section.timeline-section article {
+  width: 100%;
+  min-height: 50vh;
+  padding: 80px 2em;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 180px 1fr;
+  grid-template-areas: "left center right";
+}
+
+section.timeline-section article .timeline-left {
+  grid-area: left;
+  text-align: right;
+
+  font-size: 2em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+
+  transform: translateY(-0.5em);
+}
+
+section.timeline-section article .timeline-center {
+  grid-area: center;
+  display: flex;
+  justify-content: center;
+}
+
+section.timeline-section article .timeline-right {
+  grid-area: right;
+}
+
+section.timeline-section article .timeline-center span {
+  position: sticky;
+  top: 50vh;
+  border-radius: 100%;
+  width: 1em;
+  height: 1em;
+  background: var(--foreground);
+  box-shadow: 0 0 0 8px var(--background);
+}
+
+section.timeline-section article .timeline-center span::after {
+  content: "";
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  border-radius: 100%;
+  border: 2px solid var(--muted-foreground);
+  transform: translate(calc(-25% - 1px), calc(-25% - 1px));
+}
+
+section.timeline-section article .timeline-left .timeline-date {
+  position: sticky;
+  top: 50vh;
+}
+
+section.timeline-section .overlay-top {
+  position: absolute;
+  height: var(--timeline-extend);
+  background-image: linear-gradient(to bottom, var(--background), transparent);
+  inset: 0 0 auto;
+}
+
+section.timeline-section .overlay-bottom {
+  position: absolute;
+  height: 80px;
+  background-image: linear-gradient(to top, var(--background), transparent);
+  inset: auto 0 0;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 1em;
+  }
+
+  section.main-section h1 {
+    font-size: 3em;
+  }
+
+  section.timeline-section article {
+    padding: 1em 0;
+    grid-template-rows: 1fr;
+    grid-template-columns: 36px 1fr;
+    grid-template-areas: "center left";
+    width: 100%;
+  }
+
+  section.timeline-section article .timeline-left {
+    text-align: left;
+    grid-area: 1 / 2 / 2 / 3;
+  }
+
+  section.timeline-section article .timeline-center {
+    justify-content: flex-start;
+    grid-area: 1 / 1 / 3 / 2;
+  }
+
+  section.timeline-section article .timeline-right {
+    grid-area: span 1 / span 1 / span 1 / span 1;
+  }
+
+  section.timeline-section article .timeline-date {
+    margin-bottom: 1em;
+    font-size: 36px;
+  }
+
+  section.timeline-section .timeline-progress {
+    left: calc(1em + 6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  section.timeline-section .overlay-top,
+  section.timeline-section .overlay-top::after {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="author"
+      content="Satyam Raj"
+    />
+    <meta
+      name="description"
+      content="Stock market simulator to learn trading without risk."
+    />
+    <meta
+      name="keywords"
+      content="stock market, simulator, trading, learn, finance, investment, farma"
+    />
+    <!-- === THEME SCRIPT === -->
+    <script>
+      try {
+        const THEME_KEY = "FARMA:THEME";
+        const savedTheme = localStorage.getItem(THEME_KEY);
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+
+        const isDark =
+          savedTheme === "dark"
+            ? true
+            : savedTheme === "light"
+              ? false
+              : prefersDark;
+
+        document.documentElement.classList.toggle("dark", isDark);
+      } catch (error) {
+        console.error("Error accessing localStorage:", error);
+      }
+    </script>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    />
+    <link
+      rel="icon"
+      href="public/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Home | Stock Sim</title>
+
+    <!-- === Styling === -->
+    <style>
+      /* ================== */
+      /* ===   Root Variables    === */
+      /* ================== */
+      :root {
+        --mobile-breakpoint: 768px;
+        /* I am writing it here, but the variable was never reused as that requires postcss */
+
+        --radius: 0.625rem;
+
+        --background: oklch(1 0 0);
+        --foreground: oklch(0.145 0 0);
+
+        --card: oklch(1 0 0);
+        --card-foreground: oklch(0.145 0 0);
+
+        --popover: oklch(1 0 0);
+        --popover-foreground: oklch(0.145 0 0);
+
+        --primary: oklch(0.205 0 0);
+        --primary-foreground: oklch(0.985 0 0);
+
+        --secondary: oklch(0.97 0 0);
+        --secondary-foreground: oklch(0.205 0 0);
+
+        --muted: oklch(0.97 0 0);
+        --muted-foreground: oklch(0.556 0 0);
+
+        --red: oklch(63.681% 0.20784 25.315);
+        --yellow: oklch(79.524% 0.1616 86.05);
+        --green: oklch(72.276% 0.19199 149.6);
+        --blue: oklch(65.832% 0.1756 254.828);
+        --gray: oklch(71.068% 0.0352 256.828);
+
+        --gold: oklch(76.9% 0.188 70.08);
+        --silver: oklch(80% 0 0);
+        --bronze: oklch(66.61% 0.1315 61.29);
+
+        --accent: oklch(95.75% 0.06688 141.194);
+        --accent-foreground: oklch(37.703% 0.06991 163.448);
+
+        --accent-something: oklch(60.273% 0.14322 154.272);
+
+        --destructive: oklch(0.577 0.245 27.325);
+
+        --border: oklch(0.922 0 0);
+        --ring: oklch(0.708 0 0);
+
+        --chart-1: oklch(0.646 0.222 41.116);
+        --chart-2: oklch(0.6 0.118 184.704);
+        --chart-3: oklch(0.398 0.07 227.392);
+        --chart-4: oklch(0.828 0.189 84.429);
+        --chart-5: oklch(0.769 0.188 70.08);
+
+        --sidebar: oklch(0.985 0 0);
+        --sidebar-foreground: oklch(0.145 0 0);
+        --sidebar-primary: oklch(0.205 0 0);
+        --sidebar-primary-foreground: oklch(0.985 0 0);
+        --sidebar-accent: oklch(0.97 0 0);
+        --sidebar-accent-foreground: oklch(0.205 0 0);
+        --sidebar-border: oklch(0.922 0 0);
+        --sidebar-ring: oklch(0.708 0 0);
+
+        --table-accent: oklch(0.97 0 0);
+        --table-accent-foreground: oklch(0.205 0 0);
+        --table-border: oklch(0.922 0 0);
+
+        --input: oklch(0.922 0 0);
+        --input-accent: oklch(0.97 0 0);
+        --input-foreground: oklch(0.145 0 0);
+        --input-border: oklch(0.922 0 0);
+      }
+
+      .dark {
+        --background: oklch(0.145 0 0);
+        --foreground: oklch(0.985 0 0);
+
+        --card: oklch(0.205 0 0);
+        --card-foreground: oklch(0.985 0 0);
+
+        --popover: oklch(0.269 0 0);
+        --popover-foreground: oklch(0.985 0 0);
+
+        --primary: oklch(0.922 0 0);
+        --primary-foreground: oklch(0.205 0 0);
+
+        --secondary: oklch(0.269 0 0);
+        --secondary-foreground: oklch(0.985 0 0);
+
+        --muted: oklch(0.269 0 0);
+        --muted-foreground: oklch(0.708 0 0);
+
+        --accent: oklch(37.703% 0.06991 163.448);
+        --accent-foreground: oklch(95.75% 0.06688 141.194);
+
+        --destructive: oklch(0.704 0.191 22.216);
+
+        --border: oklch(1 0 0 / 10%);
+        --ring: oklch(0.556 0 0);
+
+        --chart-1: oklch(0.488 0.243 264.376);
+        --chart-2: oklch(0.696 0.17 162.48);
+        --chart-3: oklch(0.769 0.188 70.08);
+        --chart-4: oklch(0.627 0.265 303.9);
+        --chart-5: oklch(0.645 0.246 16.439);
+
+        --sidebar: oklch(0.205 0 0);
+        --sidebar-foreground: oklch(0.985 0 0);
+        --sidebar-primary: oklch(0.488 0.243 264.376);
+        --sidebar-primary-foreground: oklch(0.985 0 0);
+        --sidebar-accent: oklch(0.269 0 0);
+        --sidebar-accent-foreground: oklch(0.985 0 0);
+        --sidebar-border: oklch(1 0 0 / 10%);
+        --sidebar-ring: oklch(0.439 0 0);
+
+        --table-accent: oklch(0.269 0 0);
+        --table-accent-foreground: oklch(0.985 0 0);
+        --table-border: oklch(1 0 0 / 10%);
+
+        --input: oklch(1 0 0 / 15%);
+        --input-accent: oklch(0.269 0 0);
+        --input-foreground: oklch(0.985 0 0);
+        --input-border: oklch(1 0 0 / 10%);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 2em;
+        background: var(--background);
+        color: var(--foreground);
+
+        font-family: "Poppins", sans-serif;
+        font-display: swap;
+      }
+
+      canvas {
+        position: fixed;
+        z-index: -1;
+      }
+
+      section {
+        background: var(--card);
+        color: var(--card-foreground);
+        width: clamp(400px, 50%, 600px);
+        height: fit-content;
+        padding: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        border: 4px solid var(--red);
+        box-shadow:
+          0 0 5px var(--red),
+          0 0 15px var(--red);
+        border-radius: var(--radius);
+      }
+
+      h2 {
+        font-size: 7.5em;
+        color: var(--red);
+        text-shadow:
+          0 0 5px var(--red),
+          0 0 10px var(--red);
+      }
+
+      h3 {
+        font-size: 2em;
+      }
+
+      p {
+        color: var(--muted-foreground);
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .btn-group {
+        width: 80%;
+        padding-top: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+      }
+
+      .btn-group a {
+        width: 100%;
+        padding: 0.5em 1em;
+        font-weight: 600;
+        border: 1px solid var(--green);
+        border-radius: var(--radius);
+        text-wrap: nowrap;
+      }
+
+      .btn-group a:hover {
+        background: var(--green);
+      }
+
+      .scroll {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: var(--card);
+        display: flex;
+        mask-image: linear-gradient(
+          90deg,
+          transparent,
+          var(--foreground) 20%,
+          var(--foreground) 80%,
+          transparent
+        );
+        border-top: 1px solid var(--border);
+      }
+
+      .scroll div {
+        white-space: nowrap;
+        animation: animate var(--t) linear infinite;
+        animation-delay: calc(var(--t) / -1);
+      }
+
+      .scroll div:nth-child(2) {
+        animation: animate2 var(--t) linear infinite;
+        animation-delay: calc(var(--t) / -2);
+      }
+
+      @keyframes animate {
+        0% {
+          transform: translateX(100%);
+        }
+
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      @keyframes animate2 {
+        0% {
+          transform: translateX(0);
+        }
+
+        100% {
+          transform: translateX(-200%);
+        }
+      }
+
+      .scroll div span {
+        display: inline-flex;
+        letter-spacing: 0.2em;
+        padding: 0.25em 1em;
+        text-transform: uppercase;
+      }
+
+      .scroll div span:hover {
+        background: var(--muted);
+      }
+
+      .scroll div span .down,
+      .scroll div span .up {
+        margin-left: 0.5em;
+        letter-spacing: 0.1em;
+      }
+
+      .scroll div span .down {
+        color: var(--red);
+      }
+
+      .scroll div span .up {
+        color: var(--green);
+      }
+    </style>
+  </head>
+  <body>
+    <section
+      id="page-transition"
+      class="block"
+      aria-hidden="true"
+    >
+      <div class="row row1">
+        <div
+          class="overlay"
+          style="--i: 2"
+        ></div>
+        <div
+          class="overlay"
+          style="--i: 1"
+        ></div>
+        <div
+          class="overlay"
+          style="--i: 0"
+        ></div>
+        <div
+          class="overlay"
+          style="--i: 1"
+        ></div>
+        <div
+          class="overlay"
+          style="--i: 2"
+        ></div>
+      </div>
+      <div class="row row2">
+        <div
+          class="overlay"
+          style="--i: 2"
+        ></div>
+        <div
+          class="overlay"
+          style="--i: 1"
+        ></div>
+        <div
+          class="overlay"
+          style="--i: 0"
+        ></div>
+        <div
+          class="overlay"
+          style="--i: 1"
+        ></div>
+        <div
+          class="overlay"
+          style="--i: 2"
+        ></div>
+      </div>
+    </section>
+    <canvas id="canvas"></canvas>
+    <section>
+      <h2>404</h2>
+      <h3>Asset Not Found</h3>
+      <p>
+        The page you are looking for has been delisted, moved, or never existed.
+        This looks like a bad investment of your time. Let's cut our losses.
+      </p>
+      <div class="btn-group">
+        <a href="index.html">Home</a>
+        <a href="javascript:history.back()">Go Back</a>
+      </div>
+    </section>
+
+    <div
+      class="scroll"
+      style="--t: 20s"
+    >
+      <div>
+        <span>PAGE <b class="down">▼ -100%</b></span>
+        <span>WIFI <b class="up">▲ STRONG</b></span>
+        <span>LOST <b class="down">▼ TRUE</b></span>
+        <span>HOME <b class="up">▲ BUY</b></span>
+        <span>LUCK <b class="down">▼ BEARISH</b></span>
+        <span>FOMO <b class="up">▲ RISING</b></span>
+        <span>ERROR <b class="down">▼ 404</b></span>
+        <span>INDEX <b class="down">▼ CRASH</b></span>
+      </div>
+      <div>
+        <span>PAGE <b class="down">▼ -100%</b></span>
+        <span>WIFI <b class="up">▲ STRONG</b></span>
+        <span>LOST <b class="down">▼ TRUE</b></span>
+        <span>HOME <b class="up">▲ BUY</b></span>
+        <span>LUCK <b class="down">▼ BEARISH</b></span>
+        <span>FOMO <b class="up">▲ RISING</b></span>
+        <span>ERROR <b class="down">▼ 404</b></span>
+        <span>INDEX <b class="down">▼ CRASH</b></span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    let points = [];
+    const spacing = 4;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      points = [];
+      for (let i = 0; i < canvas.width / spacing; i++) {
+        points.push(canvas.height / 2);
+      }
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    let currentValue = canvas.height / 2;
+    let trend = 0;
+
+    function animate() {
+      points.shift();
+
+      const volatility = 20;
+      const change = (Math.random() - 0.5) * volatility;
+
+      const centerBias = (canvas.height / 2 - currentValue) * 0.05;
+
+      currentValue += change + centerBias;
+      points.push(currentValue);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue(
+        "--muted",
+      );
+      ctx.lineWidth = 1;
+
+      ctx.beginPath();
+
+      for (let i = 0; i < canvas.height; i += canvas.height / 10) {
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+      }
+
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(0, points[0]);
+
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      gradient.addColorStop(
+        0,
+        getComputedStyle(document.body).getPropertyValue("--red"),
+      );
+      gradient.addColorStop(1, "transparent");
+
+      for (let i = 1; i < points.length; i++) {
+        const x = (i * spacing + (i - 1) * spacing) / 2;
+        const y = (points[i] + points[i - 1]) / 2;
+        ctx.quadraticCurveTo(x, y, i * spacing, points[i]);
+      }
+
+      ctx.lineTo(points.length * spacing, points[points.length - 1]);
+
+      ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue(
+        "--red",
+      );
+      ctx.lineWidth = 2;
+      ctx.lineJoin = "round";
+      ctx.stroke();
+
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.lineTo(0, canvas.height);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      const lastX = (points.length - 1) * spacing;
+      const lastY = points[points.length - 1];
+
+      ctx.beginPath();
+      ctx.arc(lastX, lastY, 6 + 2 * Math.sin(Date.now() / 200), 0, Math.PI * 2);
+      ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--red");
+      ctx.fill();
+
+      ctx.shadowColor = getComputedStyle(document.body).getPropertyValue(
+        "--red",
+      );
+      ctx.shadowBlur = 15;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    document.addEventListener("mousemove", (e) => {
+      currentValue = currentValue + (e.clientY - currentValue) * 0.1;
+    });
+  </script>
+</html>

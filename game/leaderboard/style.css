@@ -1,0 +1,250 @@
+:root {
+  --first-height: 20vh;
+  --second-height: 10vh;
+  --third-height: 5vh;
+
+  --ease-pop: cubic-bezier(0.52, 0, 0.43, 1.32);
+  --transition-time: 1s;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+section.page {
+  width: 80%;
+}
+
+h2 {
+  text-wrap: nowrap;
+}
+
+.showcase {
+  position: relative;
+  width: clamp(300px, 60vw, 800px);
+  padding: 1em;
+  padding-bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: "second first third";
+  align-items: end;
+}
+
+.first {
+  grid-area: first;
+  --bar-height: var(--first-height);
+  --bar-bg: var(--gold);
+  --i: 0;
+}
+
+.second {
+  grid-area: second;
+  --bar-height: var(--second-height);
+  --bar-bg: var(--silver);
+  --i: 1;
+}
+
+.third {
+  grid-area: third;
+  --bar-height: var(--third-height);
+  --bar-bg: var(--bronze);
+  --i: 2;
+}
+
+.showcase > div {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 35vh;
+}
+
+.showcase span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.showcase .bar {
+  height: var(--bar-height);
+  width: 100%;
+  background: var(--bar-bg);
+
+  transform-origin: bottom;
+  transform: scaleY(1);
+
+  will-change: height, transform;
+  transition-property: height, transform;
+  transition-duration: var(--transition-time);
+  transition-timing-function: var(--ease-pop);
+  transition-delay: calc(
+    var(--i) * var(--transition-time) + var(--page-transition-duration)
+  );
+}
+
+.showcase span .imgBx {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.showcase span .imgBx img {
+  border-radius: 50%;
+
+  backface-visibility: hidden;
+  transform: rotateY(calc(360deg * 2)) scale(1);
+  will-change: transform;
+
+  transition-property: transform;
+  transition-duration: var(--transition-time);
+  transition-timing-function: var(--ease-pop);
+  transition-delay: calc(
+    var(--i) * var(--transition-time) + var(--transition-time) / 2 +
+      var(--page-transition-duration)
+  );
+}
+
+@starting-style {
+  .showcase .bar {
+    height: 0;
+  }
+
+  .showcase span .imgBx img {
+    transform: rotateY(0deg) scale(0);
+  }
+}
+
+ul#leaderboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 1em;
+  overflow: hidden;
+}
+
+@starting-style {
+  ul#leaderboard li {
+    transform: translateX(120%);
+  }
+}
+
+ul#leaderboard li {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20px 1fr 80px;
+  grid-template-rows: auto;
+  grid-template-areas: "rank content score";
+  place-items: center;
+  padding: 0.5em 1em;
+  background: var(--card);
+  border: 1px dashed var(--border);
+  transition-property: transform;
+  transition-duration: calc(var(--transition-time) / 4);
+  transition-delay: calc(
+    (var(--i) * var(--transition-time) / 4) + var(--transition-time) * 3 +
+      var(--page-transition-duration)
+  );
+  transition-timing-function: ease;
+}
+
+ul#leaderboard li:hover {
+  background: var(--muted);
+}
+
+ul#leaderboard li::before {
+  content: " ";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: var(--score-percent);
+  height: 3px;
+  background: var(--muted-foreground);
+}
+
+ul#leaderboard li:nth-child(1)::before {
+  background: var(--gold);
+}
+
+ul#leaderboard li:nth-child(2)::before {
+  background: var(--silver);
+}
+
+ul#leaderboard li:nth-child(3)::before {
+  background: var(--bronze);
+}
+
+ul#leaderboard li .rank {
+  grid-area: rank;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: fit-content;
+  border-radius: var(--radius);
+}
+
+ul#leaderboard li:nth-child(1) .rank {
+  background: var(--gold);
+}
+
+ul#leaderboard li:nth-child(2) .rank {
+  background: var(--silver);
+}
+
+ul#leaderboard li:nth-child(3) .rank {
+  background: var(--bronze);
+}
+
+ul#leaderboard li .content {
+  width: 100%;
+  grid-area: content;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 0 1em;
+}
+
+ul#leaderboard li .content .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  margin-right: 0.5em;
+}
+
+ul#leaderboard li .score {
+  grid-area: score;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 0.5em;
+  }
+
+  .showcase {
+    padding: 0;
+    width: 100%;
+  }
+
+  .leaderboard {
+    width: 100%;
+  }
+
+  ul#leaderboard {
+    padding: 0;
+  }
+}

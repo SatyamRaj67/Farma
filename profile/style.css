@@ -1,0 +1,182 @@
+main section{
+  display: flex;
+  justify-content: center;
+}
+
+/* ================== */
+/* ===   Container Styles === */
+/* ================== */
+
+.container {
+  margin: 2em 0;
+  width: clamp(200px, 90vw, 500px);
+  background: var(--card);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 1em 2em;
+  padding-top: 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container .imgBx{
+  width: 150px;
+  height: 150px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.container .inputBx {
+  position: relative;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.container .inputBx input {
+  position: relative;
+  width: 100%;
+  border: 1px solid transparent;
+  border-bottom: 1px solid var(--border);
+  outline: none;
+  background: none;
+  padding: 10px;
+  padding-bottom: 7.5px;
+  font-weight: 500;
+  font-size: 1em;
+  color: var(--foreground);
+  pointer-events: none;
+}
+
+.container .inputBx input:valid {
+  border: 1px solid var(--border);
+}
+
+.container .inputBx label{
+  position: absolute;
+  left: 0;
+  transform: translateY(-27px);
+  font-size: 0.8em;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  padding: 4px 4px;
+  transition-delay: border 0.5s;
+}
+
+.container .passwordBx {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.container .passwordBx .inputBx {
+  width: calc(100% - 35.5px);
+}
+
+.container .passwordBx .icon {
+  position: relative;
+  top: 20px;
+  width: 37.5px;
+  height: 37.5px;
+  display: flex;
+  font-size: 0.8em;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.container .passwordBx .icon:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.container .passwordBx .icon svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--foreground);
+}
+
+.container .passwordBx .icon:hover svg {
+  fill: var(--background);
+}
+
+.container .links {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.container .links a {
+  font-size: 0.8em;
+  color: var(--muted-foreground);
+}
+
+.container .links a:hover {
+  color: var(--foreground);
+  text-decoration: underline;
+}
+
+.container input[type="submit"] {
+  background: var(--foreground);
+  color: var(--background);
+  width: 80%;
+  border: none;
+  padding: 12px;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.container hr {
+  width: 60%;
+  margin: 12px;
+}
+
+.container .socials {
+  width: 80%;
+  display: flex;
+}
+
+.container .socials div {
+  flex: 1 1 180px;
+  padding: 10px;
+  border: 1px solid var(--foreground);
+  border-radius: var(--radius);
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .socials div:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.container .socials div:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.container .socials div:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.container .socials div img {
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  background: #fff;
+  border-radius: 4px;
+  scale: 1.5;
+}
