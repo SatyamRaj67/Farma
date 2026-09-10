@@ -1,53 +1,53 @@
 const market_data = [
   {
-    symbol: "AAPL",
-    name: "Apple Inc.",
-    price: 157.96,
-    change: +1.24,
+    symbol: "APPL",
+    name: "Apple",
+    price: 1.50,
+    change: +0.01,
     change_percent: +0.79,
-    market_cap: "2.5T",
-    volume: "75M",
-    href: "AAPL/index.html",
+    market_cap: "2.5M",
+    volume: "75K",
+    href: "APPL/index.html",
   },
   {
-    symbol: "MSFT",
-    name: "Microsoft Corporation",
-    price: 412.38,
-    change: -2.17,
+    symbol: "MGO",
+    name: "Mango",
+    price: 2.00,
+    change: -0.01,
     change_percent: -0.52,
-    market_cap: "1.9T",
-    volume: "30M",
-    href: "MSFT/index.html",
+    market_cap: "1.9M",
+    volume: "30K",
+    href: "MGO/index.html",
   },
   {
-    symbol: "GOOGL",
-    name: "Alphabet Inc.",
-    price: 173.44,
-    change: +1.06,
+    symbol: "GRP",
+    name: "Grape",
+    price: 3.00,
+    change: +0.02,
     change_percent: +0.61,
-    market_cap: "1.4T",
-    volume: "20M",
-    href: "GOOGL/index.html",
+    market_cap: "1.4M",
+    volume: "20K",
+    href: "GRP/index.html",
   },
   {
-    symbol: "AMZN",
-    name: "Amazon.com, Inc.",
-    price: 188.27,
-    change: +3.84,
+    symbol: "AVO",
+    name: "Avocado",
+    price: 2.50,
+    change: +0.05,
     change_percent: +2.08,
-    market_cap: "1.6T",
-    volume: "25M",
-    href: "AMZN/index.html",
+    market_cap: "1.6M",
+    volume: "25K",
+    href: "AVO/index.html",
   },
   {
-    symbol: "NVDA",
-    name: "NVIDIA Corporation",
-    price: 135.62,
-    change: +2.49,
+    symbol: "NEC",
+    name: "Nectarine",
+    price: 1.20,
+    change: +0.02,
     change_percent: +1.87,
-    market_cap: "1.0T",
-    volume: "50M",
-    href: "NVDA/index.html",
+    market_cap: "1.0M",
+    volume: "50K",
+    href: "NEC/index.html",
   },
 ];
 
@@ -61,10 +61,9 @@ const market_data = [
     row.innerHTML = `
       <td data-label="Stock">${stock.symbol}</td>
       <td data-label="Price">${stock.price}</td>
-      <td data-label="24H Change" style="color: ${
-        stock.change >= 0
-          ? "oklch(72.276% 0.19199 149.6)"
-          : "oklch(63.681% 0.20784 25.315)"
+      <td data-label="24H Change" style="color: ${stock.change >= 0
+        ? "oklch(72.276% 0.19199 149.6)"
+        : "oklch(63.681% 0.20784 25.315)"
       };">${stock.change >= 0 ? "+▲" : "-▼"}${Math.abs(
         stock.change,
       )} (${Math.abs(stock.change_percent)}%)</td>

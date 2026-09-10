@@ -14,7 +14,7 @@ const news_data = [
       { sector: "Financials", change_percent: "+0.30%" },
       { sector: "Consumer", change_percent: "-0.65%" },
     ],
-    influencedStocks: ["NVDA", "AAPL", "ASML", "TSM", "AMD"],
+    influencedStocks: ["NEC", "APPL", "ASPG", "SPIN", "ALMD"],
     insights: {
       Technology:
         "Tighter chip supply can slow product launches and lift component costs.",
@@ -39,7 +39,7 @@ const news_data = [
       { sector: "Technology", change_percent: "-0.25%" },
       { sector: "Utilities", change_percent: "+0.35%" },
     ],
-    influencedStocks: ["XOM", "CVX", "OXY", "DAL", "UPS"],
+    influencedStocks: ["YAM", "CROT", "ONIN", "LMN", "UGLI"],
     insights: {
       Energy:
         "Higher realized prices may lift near-term cash flows for producers.",
@@ -64,7 +64,7 @@ const news_data = [
       { sector: "Consumer", change_percent: "+0.40%" },
       { sector: "Utilities", change_percent: "+0.55%" },
     ],
-    influencedStocks: ["JPM", "BAC", "VNQ", "MSFT", "AMZN"],
+    influencedStocks: ["JAL", "BANA", "VINE", "MGO", "AVO"],
     insights: {
       Financials:
         "Net interest margin expectations can compress if cuts arrive sooner.",
@@ -89,7 +89,7 @@ const news_data = [
       { sector: "Consumer", change_percent: "-0.05%" },
       { sector: "Industrials", change_percent: "+0.20%" },
     ],
-    influencedStocks: ["PFE", "MRNA", "REGN", "TMO", "ILMN"],
+    influencedStocks: ["PEA", "MUSH", "RDIS", "TOM", "ICEB"],
     insights: {
       Healthcare:
         "Improved success odds can lift risk appetite across biotech and adjacent tooling vendors.",
@@ -235,11 +235,10 @@ function renderInfoForNews(index) {
       <div class="sector">
         <span style="
           --deg: ${deg}%;
-          --color: ${
-            isPositive
-              ? "oklch(72.276% 0.19199 149.6)"
-              : "oklch(63.681% 0.20784 25.315)"
-          };
+          --color: ${isPositive
+        ? "oklch(72.276% 0.19199 149.6)"
+        : "oklch(63.681% 0.20784 25.315)"
+      };
           --transform: ${isPositive ? "1" : "-1"};
         ">
           <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
